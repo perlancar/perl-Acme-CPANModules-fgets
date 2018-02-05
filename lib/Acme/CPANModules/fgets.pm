@@ -17,20 +17,34 @@ lack of built-in `fgets()` function in Perl (unlike in, say, PHP) is a bit
 annoying, but no worries because there are several CPAN modules that provide you
 with just that.
 
-My favorite module is L<PerlIO::fgets>. L<File::fgets> seems to have trouble
-dealing with piped command. And L<File::GetLineMaxLength> is pure-Perl and so is
-not as speedy as the XS libraries.
-
 _
     entries => [
         {
             module => 'PerlIO::fgets',
+            description => <<'_',
+
+Can handle piped command fine, but doesn't work well in non-blocking mode.
+
+_
         },
         {
             module => 'File::fgets',
+            description => <<'_',
+
+XS module. Seems to have trouble dealing with piped command. But works well in
+low-throughput situation as well as in non-blocking mode.
+
+_
         },
         {
             module => 'File::GetLineMaxLength',
+            description => <<'_',
+
+Pure-Perl module. Different interface (use an OO wrapper) so a bit more
+cumbersome to use. Uses a fixed 4096-byte block size so doesn't work well in
+low-throughput situation. Doesn't work well in non-blocking mode.
+
+_
         },
     ],
 };
